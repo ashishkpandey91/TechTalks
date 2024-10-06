@@ -1,4 +1,5 @@
-import { Account, AppwriteException, ID, Models } from "appwrite";
+import { Account, ID, Models } from "appwrite";
+import { handleError } from "@/utils/errorHandler";
 import AppClient from "../client";
 import { Service } from "@/type/services";
 
@@ -20,13 +21,7 @@ class AuthService extends AppClient {
       const res = await this.account.create(ID.unique(), email, password, name);
       return { data: res, error: null };
     } catch (error) {
-      let message: string = "Something went wrong..";
-      if (error instanceof AppwriteException || error instanceof Error) {
-        message = error.message;
-        console.log("Error From ");
-      }
-
-      return { data: null, error: { message } };
+      return handleError(error);
     }
   }
 
@@ -41,16 +36,28 @@ class AuthService extends AppClient {
       );
       return { data: res, error: null };
     } catch (error) {
-      let message: string = "Something went wrong..";
-      if (error instanceof AppwriteException || error instanceof Error) {
-        message = error.message;
-        console.log("Error From ");
-      }
+      return handleError(error);
+    }
+  }
 
-      return { data: null, error: { message } };
+  async logout(): Promise<Service<boolean>> {
+    try {
+      await this.account.deleteSessions();
+      return { data: true, error: null };
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  async getCurrentUser(): Promise<Service<Models.User<Models.Preferences>>> {
+    try {
+      const user = await this.account.get();
+      return { data: user, error: null };
+    } catch (error) {
+      return handleError(error);
     }
   }
 }
 
-const authService = new AuthService();
+export const authService = new AuthService();
 export default authService;

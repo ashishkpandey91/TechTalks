@@ -1,3 +1,5 @@
+import { Models } from "appwrite";
+
 export type Service<T> =
   | {
       data: T;
@@ -9,3 +11,13 @@ export type Service<T> =
         message: string;
       };
     };
+
+export interface Post {
+  title: string;
+  slug: string;
+  content: string;
+  featuredImage?: string;
+  status: string;
+  userId: string;
+}
+export type PostDocument = Post & Models.Document;
