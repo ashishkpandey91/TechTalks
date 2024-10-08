@@ -1,25 +1,40 @@
+import { useEffect, useState } from "react";
 import Header from "../components/header/Header";
-import { useEffect } from "react";
-import CONF from "../conf";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { authService } from "@/appwrite/services";
+import { login, logout } from "@/features/authSlice";
 import Login from "./pages/login";
-import { Toaster } from "@/components/ui/toaster";
 
 function App() {
-  const appwriteurl = import.meta.env.VITE_APPWRITE_URL;
-  console.log(appwriteurl);
-
+  const [loading, setLoading] = useState<boolean>(true)
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    console.log("Bucket Id", CONF.get("APPWRITE_BUCKET_ID"));
-  });
-  return (
-    <>
-      <Header />
-      <div className="mt-28 flex justify-center items-center">
-        <Login />
+    authService.getCurrentUser().then((userData) => {
+      if (userData) {
+        dispatch(login({userData}))
+      }else{
+        logout();
+      }
+    }).finally(() => setLoading(false));
+  
+
+  }, [])
+  
+
+  return !loading ? (
+    <div className='min-h-screen flex flex-wrap content-betweeno'>
+      <div className='w-full block'>
+        <Header />
+        <main>
+          <div className="mt-40 flex items-center justify-center">
+            <Login />
+          </div>
+        
+        </main>
       </div>
-      <Toaster />
-    </>
-  );
+    </div>
+  ) : null
 }
 
 export default App;

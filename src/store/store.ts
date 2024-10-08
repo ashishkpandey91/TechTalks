@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../features/authSlice'
+import { authSlice } from '../features/authSlice'
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
+
+
+const { reducer: authReducer } = authSlice
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    auth: authReducer,
   },
 })
 
@@ -13,3 +17,7 @@ export default store;
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+
