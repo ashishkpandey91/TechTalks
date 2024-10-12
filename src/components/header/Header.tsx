@@ -2,18 +2,29 @@ import { useState } from "react";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
 import Logo from "./Logo";
-import { useAppSelector } from "@/store/store";
+import { AppDispatch, useAppSelector } from "@/store/store";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { authService } from "@/appwrite/services";
+import { logout } from "@/features/authSlice";
 
-// import { useNavigate, Link } from "react-router-dom";
+// import { useNavigate} from "react-router-dom";
 
-export default function Header() {
-  // const navigate = useNavigate()
+export default function Header(){
+  // const navigate = useNavigate();
   const authStatus = useAppSelector((state) => state.auth.status);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+
   function toggleMenu() {
     setIsOpen(!isOpen);
+  }
+
+  function logoutHandler() {
+    authService.logout().then(() => {
+      dispatch(logout())
+    })
   }
 
   const navItem = [
@@ -49,10 +60,10 @@ export default function Header() {
       <Logo />
       <div className="md:mr-12  ">
         <div className="flex items-center justify-between">
-          <ul className={` ${isOpen ? ' bg-white dark:bg-slate-950 absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen ' : 'hidden md:flex items-center justify-center p-8 gap-16' }`  }>
+          <ul className={` ${isOpen ? '  bg-white dark:bg-slate-950 absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen ' : '  hidden md:flex items-center justify-center p-8 gap-16' }`  }>
             {navItem.map((item) =>
               item.active ? (
-                <li className={`${isOpen ? 'transition ease-linear delay-100 text-lg w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600'}`}>
+                <li key={item.name} className={`${isOpen ? 'select-none	transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	'}`} >
                   {item.name}
                 </li>
               ) : null
@@ -63,7 +74,7 @@ export default function Header() {
               </Button>
             )}
             {authStatus && (
-              <li className={`${isOpen ? 'transition ease-linear delay-100 text-lg w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600'}`}>
+              <li className={`${isOpen ? 'select-none	 transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	'}` } onClick={logoutHandler}>
                 Logout
               </li>
             )}
@@ -73,7 +84,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      <button className="md:hidden" onClick={toggleMenu}>
+      <button className="md:hidden select-none	" onClick={toggleMenu}>
         {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
       </button>
     </header>

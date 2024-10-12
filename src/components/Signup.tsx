@@ -45,10 +45,10 @@ export default function Login() {
   };
 
   return (
-    <Card className="w-[350px]">
+    <Card className="w-auto mx-2 md:w-[450px]">
       <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardTitle className="text-center text-xl">Sign up to create account</CardTitle>
+        <CardDescription className="text-center text-sm">Already have an account? <a href="/login" className="font-semibold hover:text-violet-700">Sign in</a>  </CardDescription>
       </CardHeader>
       <CardContent>
         <form className="space-y-4">
@@ -58,7 +58,7 @@ export default function Login() {
               <Input
                 type="text"
                 id="user_name"
-                placeholder="Name of your project"
+                placeholder="Enter your full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -69,7 +69,7 @@ export default function Login() {
               <Label htmlFor="user_email">Email:</Label>
               <Input
                 id="user_email"
-                placeholder="Name of your project"
+                placeholder="Enter your email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +81,7 @@ export default function Login() {
               <Label htmlFor="user_password">Password:</Label>
               <Input
                 id="user_password"
-                placeholder="Name of your project"
+                placeholder="Enter your password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -90,9 +90,9 @@ export default function Login() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button disabled={loading} onClick={onSubmit} type="submit">
-          {loading ? "loading..." : "submit"}
+      <CardFooter className="flex justify-center ">
+        <Button className="w-full tracking-wide" disabled={loading} onClick={onSubmit} type="submit">
+          {loading ? "loading..." : "Sign up"}
         </Button>
       </CardFooter>
     </Card>
