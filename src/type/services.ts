@@ -12,12 +12,23 @@ export type Service<T> =
       };
     };
 
-export interface Post {
-  title: string;
+export interface Post 
+{
   slug: string;
+  title: string;
   content: string;
-  featuredImage?: string;
+  featuredImage: string;
   status: string;
   userId: string;
 }
+// export interface PostPrams 
+// {
+//   $id: string;
+//   title: string;
+//   content: string;
+//   featuredImage?: string;
+//   status: string;
+//   userId: string;
+// }
 export type PostDocument = Post & Models.Document;
+

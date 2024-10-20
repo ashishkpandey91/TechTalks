@@ -1,11 +1,10 @@
+import { Link } from "react-router-dom"
+
 function Logo() {
   return (
-    <h1 className=" cursor-pointer text-2xl md:text-2xl font-bold  tracking-wide">
-      Edu
-      <span className="text-2xl md:text-2xl font-bold  tracking-wide text-violet-600">
-        Spy
-      </span>
-    </h1>
+    <Link to={"/"}><h1 className=" cursor-pointer text-2xl md:text-2xl font-bold  tracking-wide">
+      TechTalks
+    </h1></Link>
   );
 }
 

@@ -4,7 +4,7 @@ import Logo from "../header/Logo";
 
 const Footer = () => {
   return (
-    <footer className=" px-4 mt-20 mb-2 flex flex-col sm:flex-row sm:justify-between items-center gap-3 w-full border-t-[1px] pt-2 border-gray-700">
+    <footer className=" px-4 flex flex-col sm:flex-row sm:justify-between items-center gap-3 w-full border-t-[1px] pt-2 border-gray-700 from-background/10 via-background/50 to-background/80 bg-gradient-to-b backdrop-blur-xl">
       <div className="sm:flex sm:items-center sm:gap-10">
         <div className="flex items-center gap-4 justify-center">
           <Logo />

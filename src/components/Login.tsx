@@ -1,5 +1,9 @@
 import authService from "@/appwrite/services/Auth";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import {
   Card,
   CardContent,
@@ -12,11 +16,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { AppDispatch } from "@/store/store";
+import { login as authLogin } from "@/features/authSlice";
+import Loader from "./Loader";
 
 export default function Login() {
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = async () => {
     if (!email || !password) {
@@ -25,7 +35,11 @@ export default function Login() {
     }
 
     setLoading(true);
-    const { error } = await authService.login(email, password);
+    const { error, data } = await authService.login(email, password);
+    if (data) {
+      dispatch(authLogin(data));
+      navigate("/");
+    }
     setLoading(false);
 
     if (error) {
@@ -44,10 +58,15 @@ export default function Login() {
   };
 
   return (
-    <Card className="w-auto mx-2 md:w-[450px]">
+    <Card className="w-auto mx-3 md:w-[450px]">
       <CardHeader>
         <CardTitle className="text-center text-xl">Login</CardTitle>
-        <CardDescription className="text-center text-sm">Already have an account? <a href="/login" className="font-semibold hover:text-violet-700">Sign up</a>  </CardDescription>
+        <CardDescription className="text-center text-sm">
+          Don't have an account?{" "}
+          <Link className="font-semibold hover:text-violet-700" to={"/signup"}>
+            Sign up
+          </Link>{" "}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form className="space-y-4">
@@ -78,8 +97,17 @@ export default function Login() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-center ">
-        <Button className="w-full tracking-wide" disabled={loading} onClick={onSubmit} type="submit">
-          {loading ? "loading..." : "Sign in"}
+        <Button
+          className="w-full tracking-wide"
+          disabled={loading}
+          onClick={onSubmit}
+          type="submit"
+        >
+          {loading ? (
+                <Loader />
+          ) : (
+            "Sign in"
+          )}
         </Button>
       </CardFooter>
     </Card>

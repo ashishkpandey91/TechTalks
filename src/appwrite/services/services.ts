@@ -39,7 +39,7 @@ export class PostServices extends AppClient {
   }
 
   async updatePost(post: Post): Promise<Service<PostDocument>> {
-    const { content, slug, status, title, featuredImage } = post;
+    const { slug, content, status, title, featuredImage } = post;
     console.log("This is running ");
     try {
       const res = await this.#databases.updateDocument<PostDocument>(
@@ -73,13 +73,14 @@ export class PostServices extends AppClient {
     }
   }
 
-  async getPost(slug: Post["slug"]): Promise<Service<Models.Document>> {
+  async getPost(slug: Post["slug"]): Promise<Service<PostDocument>> {
     try {
       const res = await this.#databases.getDocument<PostDocument>(
         this.#db_id,
         this.#collectionId,
         slug
       );
+
       return { data: res, error: null };
     } catch (error) {
       return handleError(error);

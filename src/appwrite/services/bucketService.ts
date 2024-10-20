@@ -25,6 +25,16 @@ class BucketService extends AppClient {
       return handleError(error);
     }
   }
+  async deleteImage(
+    fileId: string = ID.unique()
+  ): Promise<Service<boolean>> {
+    try {
+      await this.#storage.deleteFile(this.#bucketId, fileId);
+      return { data: true, error: null };
+    } catch (error) {
+      return handleError(error);
+    }
+  }
 
   getPreview(fileId: string): string {
     return this.#storage.getFilePreview(this.#bucketId, fileId);
@@ -32,3 +42,4 @@ class BucketService extends AppClient {
 }
 
 export const bucketService = new BucketService();
+export default bucketService;

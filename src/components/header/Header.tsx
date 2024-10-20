@@ -2,20 +2,18 @@ import { useState } from "react";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
 import Logo from "./Logo";
-import { AppDispatch, useAppSelector } from "@/store/store";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 import { authService } from "@/appwrite/services";
 import { logout } from "@/features/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
 
-// import { useNavigate} from "react-router-dom";
-
-export default function Header(){
-  // const navigate = useNavigate();
+export default function Header() {
+  const navigate = useNavigate();
   const authStatus = useAppSelector((state) => state.auth.status);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   function toggleMenu() {
     setIsOpen(!isOpen);
@@ -23,8 +21,8 @@ export default function Header(){
 
   function logoutHandler() {
     authService.logout().then(() => {
-      dispatch(logout())
-    })
+      dispatch(logout());
+    });
   }
 
   const navItem = [
@@ -60,26 +58,59 @@ export default function Header(){
       <Logo />
       <div className="md:mr-12  ">
         <div className="flex items-center justify-between">
-          <ul className={` ${isOpen ? '  bg-white dark:bg-slate-950 absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen ' : '  hidden md:flex items-center justify-center p-8 gap-16' }`  }>
+          <ul
+            className={` ${
+              isOpen
+                ? "  bg-white dark:bg-slate-950 absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen "
+                : "  hidden md:flex items-center justify-center p-8 gap-16"
+            }`}
+          >
             {navItem.map((item) =>
               item.active ? (
-                <li key={item.name} className={`${isOpen ? 'select-none	transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	'}`} >
+                <li
+                  key={item.name}
+                  className={`${
+                    isOpen
+                      ? "select-none	transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600"
+                      : "dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	"
+                  }`}
+                  onClick={() => {
+                    navigate(item.slug);
+                  }}
+                >
                   {item.name}
                 </li>
               ) : null
             )}
             {!authStatus && (
-              <Button size={isOpen ? "lg": "sm"} className={isOpen ? 'tracking-wide text-lg w-full font-bold ' : 'text-base'}>
+              <Button
+                onClick={() => {
+                  navigate("/signup");
+                }}
+                size={isOpen ? "lg" : "sm"}
+                className={
+                  isOpen
+                    ? "tracking-wide text-lg w-full font-bold "
+                    : "text-base"
+                }
+              >
                 Get Started <FaArrowRight className="pl-2 text-2xl font-bold" />
               </Button>
             )}
             {authStatus && (
-              <li className={`${isOpen ? 'select-none	 transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600' :  'dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	'}` } onClick={logoutHandler}>
+              <li
+                className={`${
+                  isOpen
+                    ? "select-none	 transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600"
+                    : "dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	"
+                }`}
+                onClick={logoutHandler}
+              >
                 Logout
               </li>
             )}
           </ul>
-          <div className="ml-36 md:ml-0">
+          <div className="w-0 md:ml-0">
             <ModeToggle />
           </div>
         </div>

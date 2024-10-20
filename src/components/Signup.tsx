@@ -1,5 +1,7 @@
 import authService from "@/appwrite/services/Auth";
 import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Card,
   CardContent,
@@ -12,13 +14,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { login } from "@/features/authSlice";
+import Loader from "./Loader";
 
-export default function Login() {
+export default function Signup() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = async () => {
     if (!email || !password) {
       console.log("no email password");
@@ -26,7 +31,11 @@ export default function Login() {
     }
 
     setLoading(true);
-    const { error } = await authService.singup(email, password, name);
+    const { error, data } = await authService.singup(email, password, name);
+    if (data) {
+      dispatch(login(data));
+      navigate("/");
+    }
     setLoading(false);
 
     if (error) {
@@ -45,10 +54,17 @@ export default function Login() {
   };
 
   return (
-    <Card className="w-auto mx-2 md:w-[450px]">
+    <Card className="w-auto mx-3 md:w-[450px]">
       <CardHeader>
-        <CardTitle className="text-center text-xl">Sign up to create account</CardTitle>
-        <CardDescription className="text-center text-sm">Already have an account? <a href="/login" className="font-semibold hover:text-violet-700">Sign in</a>  </CardDescription>
+        <CardTitle className="text-center text-xl">
+          Sign up to create account
+        </CardTitle>
+        <CardDescription className="text-center text-sm">
+          Already have an account?{" "}
+          <Link className="font-semibold hover:text-violet-700" to={"/login"}>
+            Sign in
+          </Link>{" "}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form className="space-y-4">
@@ -91,8 +107,13 @@ export default function Login() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-center ">
-        <Button className="w-full tracking-wide" disabled={loading} onClick={onSubmit} type="submit">
-          {loading ? "loading..." : "Sign up"}
+        <Button
+          className="w-full tracking-wide"
+          disabled={loading}
+          onClick={onSubmit}
+          type="submit"
+        >
+          {loading ? <Loader /> : "Sign up"}
         </Button>
       </CardFooter>
     </Card>
