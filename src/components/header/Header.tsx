@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
 import Logo from "./Logo";
@@ -6,11 +6,25 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { authService } from "@/appwrite/services";
 import { logout } from "@/features/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const authStatus = useAppSelector((state) => state.auth.status);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -52,6 +66,10 @@ export default function Header() {
       active: authStatus,
     },
   ];
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="from-background/10 via-background/50 to-background/80 fixed top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl">
@@ -104,9 +122,27 @@ export default function Header() {
                     ? "select-none	 transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600"
                     : "dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	"
                 }`}
-                onClick={logoutHandler}
+                // onClick={logoutHandler}
               >
-                Logout
+                <AlertDialog>
+                  <AlertDialogTrigger>Logout</AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure to Logout?
+                      </AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-red-500 hover:bg-red-400"
+                        onClick={logoutHandler}
+                      >
+                        Logout
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </li>
             )}
           </ul>

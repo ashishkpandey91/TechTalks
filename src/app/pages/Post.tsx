@@ -6,6 +6,18 @@ import parse from "html-react-parser";
 import { useAppSelector } from "@/store/hook";
 import { PostDocument } from "@/type/services";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 export default function Post() {
   const [post, setPost] = useState<PostDocument>();
   const { slug } = useParams();
@@ -38,24 +50,48 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="py-8  mt-36 ">
-      <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-        <img
-          src={bucketService.getPreview(post.featuredImage)}
-          alt={post.title}
-          className="rounded-xl"
-        />
-
-        {userData?.$id === post.userId && (
-          <div className="absolute right-6 top-6">
-            <Link to={`/edit-post/${post.$id}`}>
-              <Button className="mr-3">Edit</Button>
-            </Link>
-            <Button variant={"destructive"} onClick={deletePost}>
-              Delete
-            </Button>
+    <div className=" container bg-gray-200 p-5 mt-28 mb-5 rounded-sm mx-4">
+      <div className="w-full flex justify-start mb-4 relative p-2">
+        <div className="flex flex-col md:flex-row items-center justify-center md:items-start">
+          <div className=" w-full md:w-[80%] bg-black p-2 rounded-lg">
+            <img
+              src={bucketService.getPreview(post.featuredImage)}
+              alt={post.title}
+              className="rounded-lg "
+            />
           </div>
-        )}
+          {userData?.$id === post.userId && (
+            <div className="m-5">
+              <Link to={`/edit-post/${post.$id}`}>
+                <Button className="m-3 w-20">Edit</Button>
+              </Link>
+              <Button
+                className="m-3"
+                variant={"destructive"}
+                
+              >
+                <AlertDialog>
+                  <AlertDialogTrigger>Delete</AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your post.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction className="bg-red-500 hover:bg-red-400" onClick={deletePost}>Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
       <div className="w-full mb-6">
         <h1 className="text-2xl font-bold">{post.title}</h1>

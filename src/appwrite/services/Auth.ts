@@ -2,6 +2,7 @@ import { Account, ID, Models } from "appwrite";
 import { handleError } from "@/utils/errorHandler";
 import AppClient from "../client";
 import { Service } from "@/type/services";
+import { AppUser } from "@/type/user";
 
 class AuthService extends AppClient {
   account: Account;
@@ -49,7 +50,7 @@ class AuthService extends AppClient {
     }
   }
 
-  async getCurrentUser(): Promise<Service<Models.User<Models.Preferences>>> {
+  async getCurrentUser(): Promise<Service<AppUser>> {
     try {
       const user = await this.account.get();
       return { data: user, error: null };

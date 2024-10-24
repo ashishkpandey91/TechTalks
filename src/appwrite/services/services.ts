@@ -39,13 +39,13 @@ export class PostServices extends AppClient {
   }
 
   async updatePost(post: Post): Promise<Service<PostDocument>> {
-    const { slug, content, status, title, featuredImage } = post;
-    console.log("This is running ");
+    const { content, status, title, featuredImage } = post;
+    console.log("This is running,", post.slug);
     try {
       const res = await this.#databases.updateDocument<PostDocument>(
         this.#db_id,
         this.#collectionId,
-        slug,
+        post.slug,
         {
           title,
           content,
@@ -56,6 +56,7 @@ export class PostServices extends AppClient {
 
       return { data: res, error: null };
     } catch (error) {
+      console.log("Error in update post ", error)
       return handleError(error);
     }
   }

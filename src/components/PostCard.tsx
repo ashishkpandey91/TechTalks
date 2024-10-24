@@ -7,19 +7,19 @@ import parse from 'html-react-parser'
 const PostCard = (post: postCard) => {
   const {
     $id ,
-    title = "mice testing...",
-    content = "mice testing...",
+    title = "",
+    content = "",
     featuredImage,
   } = post;
   return (
     <Link to={`/post/${$id}`} >
-      <Card className="mx-3 w-[400px] p-3 shadow-md rounded-md">
+      <Card className="mx-3 w-80 h-96 p-3 shadow-md rounded-md">
         <img className="w-full rounded-md " src={ featuredImage ? bucketService.getPreview(featuredImage) : 'default-image-url'} alt="img" />
         <CardHeader>
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>{parse(content)}</p>
+          <p>{parse(`${content.substring(0, 40)} .....`)}</p>
         </CardContent>
       </Card>
     </Link>

@@ -14,7 +14,7 @@ function Select(
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={id} className="">
+        <label htmlFor={id} className="font-bold">
           {label}
         </label>
       )}

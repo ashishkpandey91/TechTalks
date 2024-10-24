@@ -7,7 +7,7 @@ import { RTEProps } from '@/type/index';
 const RTE: React.FC<RTEProps> = ({ name = 'content', control, label, defaultValue = "" }) => {
   return (
     <div className="w-full">
-      {label && <label className="inline-block mb-1 pl-1">{label}</label>}
+      {label && <label className="inline-block mb-1 pl-1 font-bold">{label}</label>}
 
       <Controller
         name={name}

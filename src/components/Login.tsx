@@ -2,8 +2,6 @@ import authService from "@/appwrite/services/Auth";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
 import {
   Card,
   CardContent,
@@ -16,17 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { AppDispatch } from "@/store/store";
-import { login as authLogin } from "@/features/authSlice";
-import Loader from "./Loader";
+import { useAppDispatch } from "@/store/hook";
+import { login } from "@/features/authSlice";
 
 export default function Login() {
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = async () => {
     if (!email || !password) {
@@ -37,8 +33,12 @@ export default function Login() {
     setLoading(true);
     const { error, data } = await authService.login(email, password);
     if (data) {
-      dispatch(authLogin(data));
-      navigate("/");
+      authService.getCurrentUser().then(({ data }) => {
+        if (data) {
+          dispatch(login(data));
+          navigate("/");
+        }
+      });
     }
     setLoading(false);
 
@@ -102,12 +102,9 @@ export default function Login() {
           disabled={loading}
           onClick={onSubmit}
           type="submit"
+          loading={loading}
         >
-          {loading ? (
-                <Loader />
-          ) : (
-            "Sign in"
-          )}
+          Sing In
         </Button>
       </CardFooter>
     </Card>

@@ -2,8 +2,8 @@ import PostForm from "@/components/post-form/Postform";
 
 function CreatePost() {
   return (
-    <div className="mx-2 mt-24 my-2 border">
-      <h1>Create New Post</h1>
+    <div className=" container mt-24">
+      <h1 className="font-bold text-center text-xl">Create New Post</h1>
       <PostForm />
     </div>
   );
