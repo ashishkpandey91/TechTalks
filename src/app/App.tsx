@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-betweeno scrollbar-none dark:bg-gradient-to-r dark:from-[#030712] dark:to-slate-900 bg-gradient-to-r from-violet-900 via-violet-500 to-violet-400 overflow-x-hidden">
+    <div className="min-h-screen flex flex-wrap content-betweeno scrollbar-none bg-violet-500 dark:bg-slate-900">
       <div className="w-full block">
         <Header />
         <main className="flex items-center justify-center w-full min-h-[calc(100vh-50px)] ">

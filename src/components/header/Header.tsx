@@ -123,7 +123,7 @@ export default function Header() {
                 }`}
                 // onClick={logoutHandler}
               >
-                <AlertDialog>
+                <AlertDialog >
                   <AlertDialogTrigger>Logout</AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
