@@ -11,6 +11,7 @@ import {Button} from './ui/button'
 import { Input } from "./ui/input";
 import { Select } from "./ui/select";
 import Home from "./Home";
+import YourPost  from "./PostCard";
 
 export {
     Header,
@@ -25,6 +26,7 @@ export {
     RTE,
     Button,
     Input,
-    Home
+    Home,
+    YourPost
     
 }

@@ -13,7 +13,7 @@ type Props = {
   post?: PostDocument;
 };
 
-export default function PostForm( {post} : Props) {
+export default function PostForm({ post }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [featuredImageSrc, setFeaturedImageSrc] = useState<string | undefined>(
@@ -29,7 +29,7 @@ export default function PostForm( {post} : Props) {
   const form = useForm<Post & { image: File[] }>({
     defaultValues: {
       title: post?.title || "",
-      slug: post?.$id || "",
+      slug: post?.slug || "",
       content: post?.content || "",
       status: post?.status || "active",
     },
@@ -46,22 +46,37 @@ export default function PostForm( {post} : Props) {
       return;
     }
 
+    setLoading(true);
+
     if (post) {
-    const file = data.image[0]
-      ? await bucketService.uploadImage(data.image[0])
-      : null;
+      const file = data.image[0]
+        ? await bucketService.uploadImage(data.image[0])
+        : null;
 
-    if (file?.data) {
-      bucketService.deleteImage(post.featuredImage);
-    }
+      if (file && file.error) {
+        console.log("Error while uploading file: ", file.error);
+        setLoading(false);
+        return;
+      }
 
-    const {data: dbpost} = await postServices.updatePost(post);
+      if (file?.data) {
+        bucketService.deleteImage(post.featuredImage);
+      }
 
-    if (dbpost) {
-      navigate(`/post/${dbpost.$id}`);
-    }
+      const { data: dbpost } = await postServices.updatePost({
+        ...post,
+        slug: data.slug,
+        featuredImage: file?.data.$id || data.featuredImage,
+        content: data.content,
+        title: data.title,
+        status: data.status,
+      });
+
+      if (dbpost) {
+        setLoading(false);
+        navigate(`/post/${dbpost.slug}`);
+      }
     } else {
-      setLoading(true);
       const { data: fileData, error: fileError } =
         await bucketService.uploadImage(data.image[0]);
       if (fileError) {
@@ -80,7 +95,7 @@ export default function PostForm( {post} : Props) {
         return;
       }
 
-      navigate(`/post/${newPost.$id}`);
+      navigate(`/post/${newPost.slug}`);
     }
   };
 

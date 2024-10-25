@@ -13,7 +13,7 @@ function EditPost() {
     if (slug) {
       postServices.getPost(slug).then(({ data }) => {
         if (data) {
-          setPosts(data);
+          setPosts(data.documents[0]);
         }
       });
     } else {

@@ -14,7 +14,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -50,11 +49,11 @@ export default function Header() {
       slug: "/login",
       active: !authStatus,
     },
-    // {
-    //   name: "Signup",
-    //   slug: "/signup",
-    //   active: !authStatus,
-    // },
+    {
+      name: "Your Post",
+      slug: "/user-posts",
+      active: authStatus,
+    },
     {
       name: "All Posts",
       slug: "/all-posts",
@@ -129,7 +128,7 @@ export default function Header() {
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>
-                        Are you absolutely sure to Logout?
+                        Are you sure to Logout?
                       </AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

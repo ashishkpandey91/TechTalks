@@ -33,7 +33,7 @@ export default function Post() {
           console.log(error);
           return;
         }
-        setPost(data);
+        setPost(data.documents[0]);
       });
     } else navigate("/");
   }, [slug, navigate]);
@@ -50,26 +50,22 @@ export default function Post() {
   };
 
   return post ? (
-    <div className=" container bg-gray-200 p-5 mt-28 mb-5 rounded-sm mx-4">
+    <div className=" container bg-gray-200 dark:bg-slate-700 p-5 mt-28 mb-5 rounded-sm mx-4">
       <div className="w-full flex justify-start mb-4 relative p-2">
         <div className="flex flex-col md:flex-row items-center justify-center md:items-start">
-          <div className=" w-full md:w-[80%] bg-black p-2 rounded-lg">
+          <div className=" w-full md:w-[70%] md:h-[400px] bg-black p-2 rounded-lg">
             <img
               src={bucketService.getPreview(post.featuredImage)}
               alt={post.title}
-              className="rounded-lg "
+              className="rounded-lg h-96"
             />
           </div>
           {userData?.$id === post.userId && (
             <div className="m-5">
-              <Link to={`/edit-post/${post.$id}`}>
+              <Link to={`/edit-post/${post.slug}`}>
                 <Button className="m-3 w-20">Edit</Button>
               </Link>
-              <Button
-                className="m-3"
-                variant={"destructive"}
-                
-              >
+              <Button className="m-3" variant={"destructive"}>
                 <AlertDialog>
                   <AlertDialogTrigger>Delete</AlertDialogTrigger>
                   <AlertDialogContent>
@@ -84,7 +80,12 @@ export default function Post() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="bg-red-500 hover:bg-red-400" onClick={deletePost}>Delete</AlertDialogAction>
+                      <AlertDialogAction
+                        className="bg-red-500 hover:bg-red-400"
+                        onClick={deletePost}
+                      >
+                        Delete
+                      </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>

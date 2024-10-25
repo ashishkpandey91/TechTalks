@@ -1,4 +1,4 @@
-import { Databases, Models, Query } from "appwrite";
+import { Databases, ID, Models, Query } from "appwrite";
 import AppClient from "../client";
 import { Post, PostDocument, Service } from "@/type/services";
 import CONF from "@/conf";
@@ -22,8 +22,9 @@ export class PostServices extends AppClient {
       const res = await this.#databases.createDocument<PostDocument>(
         this.#db_id,
         this.#collectionId,
-        slug,
+        ID.unique(),
         {
+          slug,
           title,
           content,
           featuredImage,
@@ -38,15 +39,16 @@ export class PostServices extends AppClient {
     }
   }
 
-  async updatePost(post: Post): Promise<Service<PostDocument>> {
-    const { content, status, title, featuredImage } = post;
-    console.log("This is running,", post.slug);
+  async updatePost(post: PostDocument): Promise<Service<PostDocument>> {
+    const { $id, content, slug, status, title, featuredImage } = post;
+
     try {
       const res = await this.#databases.updateDocument<PostDocument>(
         this.#db_id,
         this.#collectionId,
-        post.slug,
+        $id,
         {
+          slug,
           title,
           content,
           featuredImage,
@@ -56,17 +58,17 @@ export class PostServices extends AppClient {
 
       return { data: res, error: null };
     } catch (error) {
-      console.log("Error in update post ", error)
+      console.log("Error in update post ", error);
       return handleError(error);
     }
   }
 
-  async deletePost(slug: Post["slug"]): Promise<Service<boolean>> {
+  async deletePost($id: PostDocument["$id"]): Promise<Service<boolean>> {
     try {
       await this.#databases.deleteDocument(
         this.#db_id,
         this.#collectionId,
-        slug
+        $id
       );
       return { data: true, error: null };
     } catch (error) {
@@ -74,13 +76,17 @@ export class PostServices extends AppClient {
     }
   }
 
-  async getPost(slug: Post["slug"]): Promise<Service<PostDocument>> {
+  async getPost(
+    slug: Post["slug"]
+  ): Promise<Service<Models.DocumentList<PostDocument>>> {
     try {
-      const res = await this.#databases.getDocument<PostDocument>(
+      const res = await this.#databases.listDocuments<PostDocument>(
         this.#db_id,
         this.#collectionId,
-        slug
+        [Query.equal("slug", [slug])]
       );
+
+      console.log("data from data[] ", res);
 
       return { data: res, error: null };
     } catch (error) {

@@ -16,21 +16,14 @@ function AllPosts() {
   }, []);
 
   return (
-    <div className="">
-      <div className="mt-24 pb-8 overflow-x-hidden grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3  place-items-start flex-wrap ">
+    
+      <div className="pt-24 pb-8 overflow-x-hidden grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3  items-center ">
         {posts.map((post) => (
           <div key={post.$id} className="p-2 w-1/4">
-            <PostCard
-              content={post.content}
-              $id={post.$id}
-              title={post.title}
-              featuredImage={post.featuredImage}
-              key={post.$id}
-            />
+            <PostCard post={post} />
           </div>
         ))}
       </div>
-    </div>
   );
 }
 

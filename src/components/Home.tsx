@@ -19,13 +19,21 @@ const Home = () => {
             variant={"outline"}
             className="select-none text-xl p-4"
             onClick={() => {
-              navigate("/signup");
+              if (!authStatus) {
+                navigate("/signup");
+              }else{
+                navigate("/add-post")
+              }
             }}
           >
             Create Your Blog
           </Button>
         </div>
-        {authStatus && <div className="bg-violet-700 dark:bg-slate-900 border-t-2 flex justify-center md:justify-start"><AllPosts /></div>}
+        {authStatus && (
+          <div className="bg-violet-700 dark:bg-slate-900 border-t-2 flex justify-center">
+            <AllPosts />
+          </div>
+        )}
       </div>
     </>
   );

@@ -15,6 +15,7 @@ import CreatePost from "./app/pages/CreatePost.tsx";
 import AllPosts from "./app/pages/AllPostsPage.tsx";
 import Post from "./app/pages/Post.tsx";
 import EditPost from "./app/pages/EditPost.tsx";
+import YourPost from "./app/pages/YourPostPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AllPosts />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/user-posts",
+        element: (
+          <AuthLayout authentication>
+            <YourPost />
           </AuthLayout>
         ),
       },
