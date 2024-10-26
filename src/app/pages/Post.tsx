@@ -19,11 +19,25 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function Post() {
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    hour12: true,
+  };
+
   const [post, setPost] = useState<PostDocument>();
   const { slug } = useParams();
   const navigate = useNavigate();
-
   const userData = useAppSelector((state) => state.auth.userData);
+  const updatedDate: Date = post?.$updatedAt ? new Date(post?.$updatedAt) : new Date(0);
+  const formattedDate: string = updatedDate.toLocaleString("en-IN", options);
+
+
 
   useEffect(() => {
     if (slug) {
@@ -57,7 +71,7 @@ export default function Post() {
             <img
               src={bucketService.getPreview(post.featuredImage)}
               alt={post.title}
-              className="rounded-lg h-96"
+              className="rounded-lg h-56 md:h-96"
             />
           </div>
           {userData?.$id === post.userId && (
@@ -94,6 +108,8 @@ export default function Post() {
           )}
         </div>
       </div>
+      <p className="text-xs text-left py-3">{`${formattedDate.toLocaleLowerCase()}`}</p>
+
       <div className="w-full mb-6">
         <h1 className="text-2xl font-bold">{post.title}</h1>
       </div>

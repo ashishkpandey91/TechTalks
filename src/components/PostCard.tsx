@@ -5,7 +5,22 @@ import parse from "html-react-parser";
 import { PostDocument } from "@/type/services";
 
 const PostCard = ({ post }: { post: PostDocument }) => {
-  const { slug, title = "", content = "", featuredImage } = post;
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
+    hour12: true,
+  };
+
+  const { slug, title = "", content = "", featuredImage, $updatedAt } = post;
+  const updatedDate: Date = new Date($updatedAt);
+
+  const formattedDate: string = updatedDate.toLocaleString("en-IN", options);
+
   return (
     <Link to={`/post/${slug}`}>
       <Card className="mx-3 w-80 h-96 p-3 shadow-md rounded-md">
@@ -18,10 +33,11 @@ const PostCard = ({ post }: { post: PostDocument }) => {
           }
           alt="img"
         />
+        <p className="text-xs mt-4 text-right mr-3">{`${formattedDate.toLocaleLowerCase()}`}</p>
         <CardHeader>
-          <CardTitle>{title}</CardTitle>
+          <CardTitle className="text-base">{title}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="text-sm">
           <p>{parse(`${content.substring(0, 70)} . . . .`)}</p>
         </CardContent>
       </Card>
