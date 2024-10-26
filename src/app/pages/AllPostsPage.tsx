@@ -2,18 +2,26 @@ import { useState, useEffect } from "react";
 import { PostCard } from "@/components/index";
 import { postServices } from "@/appwrite/services/services";
 import { PostDocument } from "@/type/services";
+import { LoaderCircle } from "lucide-react";
 
 function AllPosts() {
   const [posts, setPosts] = useState<PostDocument[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     postServices.getPosts().then((res) => {
       const posts = res.data;
       if (posts) {
         setPosts(posts.documents);
+        setLoading(false);
       }
     });
   }, []);
+
+  if (loading) {
+    return <LoaderCircle size={100} className="mr-1 animate-spin" />; 
+  }
 
   return (
     

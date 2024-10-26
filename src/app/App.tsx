@@ -15,7 +15,7 @@ function App() {
       .getCurrentUser()
       .then(({ data }) => {
         if (data) {
-          console.log("user data: ", data);
+          // console.log("user data: ", data);
           dispatch(login(data));
         } else {
           dispatch(logout());
@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-betweeno scrollbar-none bg-violet-500 dark:bg-slate-900">
+    <div className="min-h-screen flex flex-wrap content-betweeno scrollbar-none bg-violet-500 dark:bg-slate-900 overflow-x-hidden">
       <div className="w-full block">
         <Header />
         <main className="flex items-center justify-center w-full min-h-[calc(100vh-50px)] ">
