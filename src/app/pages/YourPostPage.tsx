@@ -3,15 +3,16 @@ import { PostCard } from "@/components/index";
 import { postServices } from "@/appwrite/services/services";
 import { PostDocument } from "@/type/services";
 import { useAppSelector } from "@/store/hook";
+import { LoaderCircle } from "lucide-react";
 
 function YourPost() {
   const userData = useAppSelector((state) => state.auth.userData);
 
   const [posts, setPosts] = useState<PostDocument[]>([]);
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    setLoading(true); // Set loading to true when fetching starts
+    setLoading(true); 
     postServices.getPosts()
       .then((res) => {
         const fetchedPosts = res.data;
@@ -26,12 +27,12 @@ function YourPost() {
         console.error("Error fetching posts:", error);
       })
       .finally(() => {
-        setLoading(false); // Set loading to false after fetching is complete
+        setLoading(false); 
       });
   }, [userData]);
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading message or spinner while loading
+    return <LoaderCircle size={100} className="mr-1 animate-spin" />; 
   }
 
   return (
