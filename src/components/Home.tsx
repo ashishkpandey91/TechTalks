@@ -30,7 +30,7 @@ const Home = () => {
           </Button>
         </div>
         {authStatus && (
-          <div className="bg-violet-700 dark:bg-slate-900 border-t-2 flex justify-center">
+          <div className="bg-gray-300 dark:bg-slate-900 border-t-2 flex justify-center">
             <AllPosts />
           </div>
         )}
