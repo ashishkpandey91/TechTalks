@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { VitePWA } from 'vite-plugin-pwa';
 
+
  
 export default defineConfig({
   plugins: [
@@ -11,21 +12,21 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'My Vite PWA',
-        short_name: 'VitePWA',
-        description: 'A React app with PWA support using Vite',
-        theme_color: '#ffffff',
+        name: 'TechTalks',
+        short_name: 'TechTalks',
+        description: 'A blog web app',
+        theme_color: '#8b5cf6',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
         icons: [
           {
-            src: './img/20241022_215643.png',
+            src: './img/192-img.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: './img/20241022_215643.png',
+            src: './img/512-img.png',
             sizes: '512x512',
             type: 'image/png',
           },
