@@ -9,9 +9,9 @@ const Footer = () => {
         <div className="flex items-center gap-4 justify-center">
           <Logo className="text-sm" />
         </div>
-        <p className="sm:border-l-2 md:pl-6 sm:py-2">
+        <p className="sm:border-l-2 md:pl-6 sm:py-2 text-xs md:text-base">
           © 2024 TechTalks
-          <a href="https://github.com/ashishkpandey91" className="text-sm md:text-base"> —@ashishkpandey91</a>
+          <a href="https://github.com/ashishkpandey91" className="text-xs md:text-base"> —@ashishkpandey91</a>
         </p>
       </div>
       <div className="text-2xl flex gap-10 md:gap-6 justify-center items-center md:pr-8">

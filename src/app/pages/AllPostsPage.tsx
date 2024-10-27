@@ -25,7 +25,7 @@ function AllPosts() {
 
   return (
     
-      <div className="pt-24 pb-8 overflow-x-hidden grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 items-center">
+      <div className="pt-24 pb-8 overflow-x-hidden grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 justify-center align-middle items-cente ">
         {posts.map((post) => (
           <div key={post.$id} className="p-2 w-1/4 ">
             <PostCard post={post} />
