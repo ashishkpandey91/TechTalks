@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="flex flex-wrap scrollbar-none bg-gray-300 dark:bg-slate-900 ">
+    <div className="flex flex-wrap scrollbar-none bg-gray-300 dark:bg-slate-900 overflow-x-hidden">
       <div className="w-full block">
         <Header />
         <main className="flex items-center justify-center min-h-[calc(100vh-50px)] ">
