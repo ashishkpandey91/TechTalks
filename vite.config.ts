@@ -15,8 +15,8 @@ export default defineConfig({
         name: 'TechTalks',
         short_name: 'TechTalks',
         description: 'A blog web app',
-        theme_color: '#8b5cf6',
-        background_color: '#ffffff',
+        theme_color: '#ffffff',
+        background_color: '#8b5cf6',
         display: 'standalone',
         start_url: '/',
         icons: [
