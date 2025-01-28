@@ -49,20 +49,31 @@ export default function Header() {
       slug: "/login",
       active: !authStatus,
     },
+
+    {
+      name: "Cteate Blog",
+      slug: "/add-post",
+      active: authStatus,
+    },
+    {
+      name: "Blog",
+      slug: "/all-posts",
+      active: authStatus,
+    },
     {
       name: "Your Post",
       slug: "/user-posts",
       active: authStatus,
     },
     {
-      name: "All Posts",
-      slug: "/all-posts",
-      active: authStatus,
+      name: "About",
+      slug: "/about",
+      active: true,
     },
     {
-      name: "Add Post",
-      slug: "/add-post",
-      active: authStatus,
+      name: "Contact Us",
+      slug: "/contact",
+      active: true,
     },
   ];
 
@@ -71,15 +82,15 @@ export default function Header() {
   }, [location.pathname]);
 
   return (
-    <header className="from-background/10 via-background/50 to-background/80 fixed top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b px-4 backdrop-blur-xl">
+    <header className="bg-blend-color-burn bg-gray-50 dark:bg-[#121416] fixed top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between bg-gradient-to-b px-4 backdrop-blur-3xl">
       <Logo />
       <div className="md:mr-12  ">
         <div className="flex items-center justify-between">
           <ul
             className={` ${
               isOpen
-                ? "  bg-white dark:bg-slate-950 absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen "
-                : "  hidden md:flex items-center justify-center p-8 gap-16"
+                ? " bg-gray-50  dark:bg-[#121416] absolute left-0 top-16 w-full items-center justify-center flex-col space-y-4 p-3 h-screen "
+                : "  hidden md:flex items-center justify-center p-8 gap-8"
             }`}
           >
             {navItem.map((item) =>
@@ -88,8 +99,8 @@ export default function Header() {
                   key={item.name}
                   className={`${
                     isOpen
-                      ? "select-none	transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600"
-                      : "dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	"
+                      ? "select-none	transition ease-linear delay-100 text-base ml-4  hover:text-emerald-600"
+                      : "dark:text-white text-base dark:hover:text-emerald-600  transition ease-linear delay-100 font-light cursor-pointer text-black border-transparent px-1 border-b hover:text-emerald-600 hover:border-b hover:border-emerald-600 select-none	"
                   }`}
                   onClick={() => {
                     navigate(item.slug);
@@ -118,8 +129,8 @@ export default function Header() {
               <li
                 className={`${
                   isOpen
-                    ? "select-none	 transition ease-linear delay-100 text-base w-20 ml-4 font-bold text-left hover:text-violet-600"
-                    : "dark:text-white text-base dark:hover:text-violet-600  transition ease-linear delay-100 font-semibold cursor-pointer text-black border-transparent px-1 border-b hover:text-violet-600 hover:border-b hover:border-violet-600 select-none	"
+                    ? "select-none	 transition ease-linear delay-100 text-base w-20 ml-4  text-left hover:text-emerald-600"
+                    : "dark:text-white text-base dark:hover:text-emerald-600  transition ease-linear delay-100 cursor-pointer text-black border-transparent px-1 border-b hover:text-emerald-600 hover:border-b hover:border-emerald-600 select-none	"
                 }`}
                 // onClick={logoutHandler}
               >

@@ -9,8 +9,16 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="flex-col items-center justify-center">
-        <div className="h-screen w-screen bg-gradient-to-r from-violet-950 via-violet-500 to-violet-400  dark:bg-gradient-to-r dark:from-[#030712] dark:to-slate-900 flex flex-col gap-8 items-center justify-center overflow-hidden">
+      <div className="relative flex-col items-center justify-center bg-emerald-500 blur-0">
+        <video
+          className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-25"
+          src="/bg-video.mp4"
+          autoPlay
+          loop
+          muted
+        ></video>
+
+        <div className="h-screen w-screen flex flex-col gap-8 items-center justify-center overflow-hidden relative">
           <FaBlog className="text-8xl text-white" />
           <h1 className="text-5xl text-white font-bold text-center px-3">
             Explore, Learn, and Innovate
@@ -21,8 +29,8 @@ const Home = () => {
             onClick={() => {
               if (!authStatus) {
                 navigate("/signup");
-              }else{
-                navigate("/add-post")
+              } else {
+                navigate("/add-post");
               }
             }}
           >
