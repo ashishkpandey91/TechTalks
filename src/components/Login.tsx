@@ -60,10 +60,10 @@ export default function Login() {
   return (
     <Card className="w-auto mx-3 md:w-[450px]">
       <CardHeader>
-        <CardTitle className="text-center text-xl">Login</CardTitle>
+        <CardTitle className="text-center text-xl pt-3">Login</CardTitle>
         <CardDescription className="text-center text-sm">
           Don't have an account?{" "}
-          <Link className="font-semibold hover:text-violet-700" to={"/signup"}>
+          <Link className="font-semibold hover:text-emerald-600" to={"/signup"}>
             Sign up
           </Link>{" "}
         </CardDescription>
@@ -98,7 +98,7 @@ export default function Login() {
       </CardContent>
       <CardFooter className="flex justify-center ">
         <Button
-          className="w-full tracking-wide"
+          className="w-full tracking-wide bg-emerald-600 hover:bg-emerald-600"
           disabled={loading}
           onClick={onSubmit}
           type="submit"

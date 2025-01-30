@@ -112,14 +112,15 @@ export default function Header() {
             )}
             {!authStatus && (
               <Button
+               
                 onClick={() => {
                   navigate("/signup");
                 }}
                 size={isOpen ? "lg" : "sm"}
-                className={
-                  isOpen
+                className={`bg-emerald-600 hover:bg-emerald-700
+                  ${isOpen
                     ? "tracking-wide text-lg w-full font-bold "
-                    : "text-base"
+                    : "text-base"}`
                 }
               >
                 Get Started <FaArrowRight className="pl-2 text-2xl font-bold" />

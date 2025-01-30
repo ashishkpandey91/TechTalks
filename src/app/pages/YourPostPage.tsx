@@ -44,9 +44,11 @@ function YourPost() {
           </div>
         ))
       ) : (
-        <h1 className="font-medium md:text-xl">
+        <div className="w-screen flex justify-center items-center">
+        <h1 className=" md:text-xl">
           You haven’t posted anything yet!
         </h1>
+        </div>
       )}
     </div>
   );

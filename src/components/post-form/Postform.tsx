@@ -192,7 +192,7 @@ export default function PostForm({ post }: Props) {
             className="my-4"
             {...register("status", { required: true })}
           />
-          <Button type="submit" className="w-full my-4" loading={loading}>
+          <Button type="submit" className="w-full my-4 bg-emerald-600 hover:bg-emerald-700" loading={loading}>
             {post ? "Update" : "Submit"}
           </Button>
         </div>

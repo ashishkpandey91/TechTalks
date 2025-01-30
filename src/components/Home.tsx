@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { FaBlog } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AllPosts from "@/app/pages/AllPostsPage";
+import Side from "@/components/SeccondHero"
 
 const Home = () => {
   const authStatus = useAppSelector((state) => state.auth.status);
@@ -25,7 +26,7 @@ const Home = () => {
           </h1>
           <Button
             variant={"outline"}
-            className="select-none text-xl p-4"
+            className="select-none text-xl p-4 dark:bg-[#121416]"
             onClick={() => {
               if (!authStatus) {
                 navigate("/signup");
@@ -37,8 +38,11 @@ const Home = () => {
             Create Your Blog
           </Button>
         </div>
+        <div className="bg-gray-300">
+        <Side />
+        </div>
         {authStatus && (
-          <div className="bg-gray-300 dark:bg-slate-900 border-t-2 flex justify-center">
+          <div className="bg-gray-300 dark:bg-[#121416] border-t-2 flex justify-center">
             <AllPosts />
           </div>
         )}

@@ -56,12 +56,12 @@ export default function Signup() {
   return (
     <Card className="w-auto mx-3 md:w-[450px]">
       <CardHeader>
-        <CardTitle className="text-center text-xl">
+        <CardTitle className="text-center text-xl pt-3">
           Sign up to create account
         </CardTitle>
         <CardDescription className="text-center text-sm">
           Already have an account?{" "}
-          <Link className="font-semibold hover:text-violet-700" to={"/login"}>
+          <Link className="font-semibold hover:text-emerald-600" to={"/login"}>
             Sign in
           </Link>{" "}
         </CardDescription>
@@ -108,7 +108,7 @@ export default function Signup() {
       </CardContent>
       <CardFooter className="flex justify-center ">
         <Button
-          className="w-full tracking-wide"
+          className="w-full tracking-wide bg-emerald-600 hover:bg-emerald-700"
           disabled={loading}
           onClick={onSubmit}
           type="submit"
