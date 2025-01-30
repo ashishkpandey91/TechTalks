@@ -23,9 +23,9 @@ const PostCard = ({ post }: { post: PostDocument }) => {
 
   return (
     <Link to={`/post/${slug}`}>
-      <Card className="mx-3 w-80 h-96 p-3 shadow-md rounded-md">
+      <Card className="mx-3 w-80 h-96 rounded-md bg-transparent shadow-sm shadow-emerald-700">
         <img
-          className="w-full h-40 rounded-md "
+          className="w-full h-[47%] rounded-t-md "
           src={
             featuredImage
               ? bucketService.getPreview(featuredImage)
