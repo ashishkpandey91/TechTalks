@@ -1,7 +1,7 @@
 import authService from "@/appwrite/services/Auth";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/hook";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ export default function Signup() {
   const [password, setPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onSubmit = async () => {
     if (!email || !password) {

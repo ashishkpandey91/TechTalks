@@ -34,10 +34,10 @@ export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const userData = useAppSelector((state) => state.auth.userData);
-  const updatedDate: Date = post?.$updatedAt ? new Date(post?.$updatedAt) : new Date(0);
+  const updatedDate: Date = post?.$updatedAt
+    ? new Date(post?.$updatedAt)
+    : new Date(0);
   const formattedDate: string = updatedDate.toLocaleString("en-IN", options);
-
-
 
   useEffect(() => {
     if (slug) {
@@ -64,18 +64,16 @@ export default function Post() {
   };
 
   return post ? (
-    <div className=" container bg-gray-200 dark:bg-slate-700 p-5 mt-28 mb-5 rounded-sm mx-4">
-      <div className="w-full flex justify-start mb-4 relative p-2">
-        <div className="flex flex-col md:flex-row items-center justify-center md:items-start">
-          <div className=" w-full md:w-[70%] md:h-[400px] bg-black p-2 rounded-lg">
-            <img
-              src={bucketService.getPreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg h-56 md:h-96"
-            />
-          </div>
+    <div className="md:max-w-[70%] w-full flex flex-col py-20 md:py-28">
+      <img
+        src={bucketService.getPreview(post.featuredImage)}
+        alt={post.title}
+        className="rounded-sm h-56 md:h-96"
+      />
+      <div className="w-full flex justify-start mb-4 relative ">
+        <div className="flex items-center justify-center">
           {userData?.$id === post.userId && (
-            <div className="m-5">
+            <div className="">
               <Link to={`/edit-post/${post.slug}`}>
                 <Button className="m-3 w-20">Edit</Button>
               </Link>
@@ -104,16 +102,23 @@ export default function Post() {
                   </AlertDialogContent>
                 </AlertDialog>
               </Button>
+              <p className="text-sm text-left font-semibold">{`${userData?.name}`}</p>
             </div>
           )}
         </div>
       </div>
-      <p className="text-xs text-left py-3">{`${formattedDate.toLocaleLowerCase()}`}</p>
-
-      <div className="w-full mb-6">
-        <h1 className="text-2xl font-bold">{post.title}</h1>
+      <div className="px-4 md:px-0">
+        <div className="flex gap-9 py-3">
+          {/* <p className="text-sm text-left font-semibold">{`${userData?.name}`}</p> */}
+          {/* Todo : Later replace with author */}
+          <p className="text-xs text-left">{`${formattedDate.toLocaleLowerCase()}`}</p>
+        </div>
+        <div className="w-full mb-6">
+          <h1 className="text-2xl font-bold">{post.title}</h1>
+          {/* <h1 className="text-2xl font-bold">{userData?.name}</h1> */}
+        </div>
+        <div className="browser-css">{parse(post.content)}</div>
       </div>
-      <div className="browser-css">{parse(post.content)}</div>
     </div>
   ) : null;
 }

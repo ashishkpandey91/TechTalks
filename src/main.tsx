@@ -16,6 +16,8 @@ import AllPosts from "./app/pages/AllPostsPage.tsx";
 import Post from "./app/pages/Post.tsx";
 import EditPost from "./app/pages/EditPost.tsx";
 import YourPost from "./app/pages/YourPostPage.tsx";
+import About from "./app/pages/AboutPage.tsx";
+import Contact from "./app/pages/ContactPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
       {
         path: "/signup",
