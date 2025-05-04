@@ -37,7 +37,7 @@ class BucketService extends AppClient {
   }
 
   getPreview(fileId: string): string {
-    return this.#storage.getFilePreview(this.#bucketId, fileId);
+    return this.#storage.getFileView(this.#bucketId, fileId);
   }
 }
 

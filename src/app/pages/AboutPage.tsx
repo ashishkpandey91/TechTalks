@@ -13,12 +13,12 @@ const About = () => {
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
         <p className="text-lg mb-6">
           Welcome to{" "}
-          <span className="text-blue-400 font-semibold">TechTalks</span>! Our
+          <span className="text-emerald-400 font-semibold">TechTalks</span>! Our
           mission is to share insightful articles, tutorials, and resources to
           help developers stay updated with the latest trends in technology.
         </p>
 
-        <section className="bg-gray-900 p-6 rounded-xl shadow-lg ">
+        <section className="bg-gray-800 p-6 rounded-xl shadow-lg ">
           <h2 className="text-2xl font-semibold mb-3 text-gray-300">
             Why We Started
           </h2>
@@ -41,7 +41,7 @@ const About = () => {
 
         <section className="mt-6">
           <h2 className="text-2xl font-semibold mb-3">Join Us</h2>
-          <p className="text-gray-300">
+          <p className="">
             Stay connected and never miss an update! Follow us on our journey
             and be part of our growing community.
           </p>
