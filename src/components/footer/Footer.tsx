@@ -32,6 +32,9 @@ const Footer = () => {
         <a href="https://www.instagram.com//">
           <FaInstagramSquare className="cursor-pointer" />
         </a>
+        <a href="https://www.instagram.com//">
+          <FaGithub className="cursor-pointer" />
+        </a>
       </div>
     </footer>
   );
